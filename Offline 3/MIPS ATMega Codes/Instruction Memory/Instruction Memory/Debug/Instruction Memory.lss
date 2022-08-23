@@ -1,0 +1,406 @@
+
+Instruction Memory.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000001e8  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  0000023c  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  0000023c  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000026c  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000020  00000000  00000000  000002a8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000006ff  00000000  00000000  000002c8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000005cd  00000000  00000000  000009c7  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000003eb  00000000  00000000  00000f94  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000038  00000000  00000000  00001380  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000003e2  00000000  00000000  000013b8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    0000019c  00000000  00000000  0000179a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000010  00000000  00000000  00001936  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   8:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  10:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  14:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  18:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  1c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  20:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  24:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  28:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  2c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  30:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  34:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  38:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  3c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  40:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  44:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  48:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  4c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  50:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+  60:	0e 94 36 00 	call	0x6c	; 0x6c <main>
+  64:	0c 94 f2 00 	jmp	0x1e4	; 0x1e4 <_exit>
+
+00000068 <__bad_interrupt>:
+  68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000006c <main>:
+
+
+
+
+int main(void)
+{
+  6c:	cf 93       	push	r28
+  6e:	df 93       	push	r29
+  70:	cd b7       	in	r28, 0x3d	; 61
+  72:	de b7       	in	r29, 0x3e	; 62
+  74:	d2 50       	subi	r29, 0x02	; 2
+  76:	0f b6       	in	r0, 0x3f	; 63
+  78:	f8 94       	cli
+  7a:	de bf       	out	0x3e, r29	; 62
+  7c:	0f be       	out	0x3f, r0	; 63
+  7e:	cd bf       	out	0x3d, r28	; 61
+	DDRB = 0b00000000;
+  80:	17 ba       	out	0x17, r1	; 23
+	DDRD = 0b00000000;
+  82:	11 ba       	out	0x11, r1	; 17
+	DDRA = 0b11111111;
+  84:	8f ef       	ldi	r24, 0xFF	; 255
+  86:	8a bb       	out	0x1a, r24	; 26
+	DDRC = 0b11111111;
+  88:	84 bb       	out	0x14, r24	; 20
+	unsigned char memory[256][2];
+	unsigned char PC_Address = 0, branch_address, jump_address; //PD0 for clk
+	unsigned char jump_selection=0,branch_selection=0, bneq_selection=0; //PD1 for jump_selection
+	unsigned char prev_clk=1,curr_clk=0,zero_flag=0; //PD1 for jump_selection , PD2 for branching,PD3 for zero_flag
+
+	MCUCSR = (1<<JTD);
+  8a:	80 e8       	ldi	r24, 0x80	; 128
+  8c:	84 bf       	out	0x34, r24	; 52
+	MCUCSR = (1<<JTD);
+  8e:	84 bf       	out	0x34, r24	; 52
+
+	
+	memory[0][0]=0xe7;
+  90:	97 ee       	ldi	r25, 0xE7	; 231
+  92:	99 83       	std	Y+1, r25	; 0x01
+	memory[0][1]=0x13;
+  94:	93 e1       	ldi	r25, 0x13	; 19
+  96:	9a 83       	std	Y+2, r25	; 0x02
+	
+	memory[1][0]=0x97;
+  98:	27 e9       	ldi	r18, 0x97	; 151
+  9a:	2b 83       	std	Y+3, r18	; 0x03
+	memory[1][1]=0x2e;
+  9c:	2e e2       	ldi	r18, 0x2E	; 46
+  9e:	2c 83       	std	Y+4, r18	; 0x04
+	
+	memory[2][0]=0x01;
+  a0:	21 e0       	ldi	r18, 0x01	; 1
+  a2:	2d 83       	std	Y+5, r18	; 0x05
+	memory[2][1]=0x20;
+  a4:	40 e2       	ldi	r20, 0x20	; 32
+  a6:	4e 83       	std	Y+6, r20	; 0x06
+	
+	memory[3][0]=0x81;
+  a8:	21 e8       	ldi	r18, 0x81	; 129
+  aa:	2f 83       	std	Y+7, r18	; 0x07
+	memory[3][1]=0x23;
+  ac:	23 e2       	ldi	r18, 0x23	; 35
+  ae:	28 87       	std	Y+8, r18	; 0x08
+	
+	memory[4][0]=0x40;
+  b0:	20 e4       	ldi	r18, 0x40	; 64
+  b2:	29 87       	std	Y+9, r18	; 0x09
+	memory[4][1]=0x14;
+  b4:	24 e1       	ldi	r18, 0x14	; 20
+  b6:	2a 87       	std	Y+10, r18	; 0x0a
+	
+	memory[5][0]=0xd2;
+  b8:	22 ed       	ldi	r18, 0xD2	; 210
+  ba:	2b 87       	std	Y+11, r18	; 0x0b
+	memory[5][1]=0x13;
+  bc:	9c 87       	std	Y+12, r25	; 0x0c
+	
+	memory[6][0]=0x12;
+  be:	92 e1       	ldi	r25, 0x12	; 18
+  c0:	9d 87       	std	Y+13, r25	; 0x0d
+	memory[6][1]=0x21;
+  c2:	31 e2       	ldi	r19, 0x21	; 33
+  c4:	3e 87       	std	Y+14, r19	; 0x0e
+	
+	memory[7][0]=0x72;
+  c6:	92 e7       	ldi	r25, 0x72	; 114
+  c8:	9f 87       	std	Y+15, r25	; 0x0f
+	memory[7][1]=0x31;
+  ca:	91 e3       	ldi	r25, 0x31	; 49
+  cc:	98 8b       	std	Y+16, r25	; 0x10
+	
+	memory[8][0]=0x51;
+  ce:	21 e5       	ldi	r18, 0x51	; 81
+  d0:	29 8b       	std	Y+17, r18	; 0x11
+	memory[8][1]=0x80;
+  d2:	8a 8b       	std	Y+18, r24	; 0x12
+	
+	memory[9][0]=0x33;
+  d4:	83 e3       	ldi	r24, 0x33	; 51
+  d6:	8b 8b       	std	Y+19, r24	; 0x13
+	memory[9][1]=0x31;
+  d8:	9c 8b       	std	Y+20, r25	; 0x14
+	
+	memory[10][0]=0x62;
+  da:	82 e6       	ldi	r24, 0x62	; 98
+  dc:	8d 8b       	std	Y+21, r24	; 0x15
+	memory[10][1]=0x24;
+  de:	84 e2       	ldi	r24, 0x24	; 36
+  e0:	8e 8b       	std	Y+22, r24	; 0x16
+	
+	
+	memory[11][0]=0x07;
+  e2:	97 e0       	ldi	r25, 0x07	; 7
+  e4:	9f 8b       	std	Y+23, r25	; 0x17
+	memory[11][1]=0x77;
+  e6:	87 e7       	ldi	r24, 0x77	; 119
+  e8:	88 8f       	std	Y+24, r24	; 0x18
+	
+	memory[12][0]=0x07;
+  ea:	99 8f       	std	Y+25, r25	; 0x19
+	memory[12][1]=0x77;
+  ec:	8a 8f       	std	Y+26, r24	; 0x1a
+	
+	memory[13][0]=0x51;
+  ee:	2b 8f       	std	Y+27, r18	; 0x1b
+	memory[13][1]=0x50;
+  f0:	50 e5       	ldi	r21, 0x50	; 80
+  f2:	5c 8f       	std	Y+28, r21	; 0x1c
+	
+	memory[14][0]=0xc0;
+  f4:	50 ec       	ldi	r21, 0xC0	; 192
+  f6:	5d 8f       	std	Y+29, r21	; 0x1d
+	memory[14][1]=0x20;
+  f8:	4e 8f       	std	Y+30, r20	; 0x1e
+	
+	memory[15][0]=0xb4;
+  fa:	44 eb       	ldi	r20, 0xB4	; 180
+  fc:	4f 8f       	std	Y+31, r20	; 0x1f
+	memory[15][1]=0x21;
+  fe:	38 a3       	std	Y+32, r19	; 0x20
+	
+	memory[16][0]=0x21;
+ 100:	39 a3       	std	Y+33, r19	; 0x21
+	memory[16][1]=0x15;
+ 102:	35 e1       	ldi	r19, 0x15	; 21
+ 104:	3a a3       	std	Y+34, r19	; 0x22
+	
+	memory[17][0]=0x07;
+ 106:	9b a3       	std	Y+35, r25	; 0x23
+	memory[17][1]=0x77;
+ 108:	8c a3       	std	Y+36, r24	; 0x24
+	
+	memory[18][0]=0xa2;
+ 10a:	32 ea       	ldi	r19, 0xA2	; 162
+ 10c:	3d a3       	std	Y+37, r19	; 0x25
+	memory[18][1]=0x41;
+ 10e:	31 e4       	ldi	r19, 0x41	; 65
+ 110:	3e a3       	std	Y+38, r19	; 0x26
+	
+	memory[19][0]=0x07;
+ 112:	9f a3       	std	Y+39, r25	; 0x27
+	memory[19][1]=0x77;
+ 114:	88 a7       	std	Y+40, r24	; 0x28
+	
+	memory[20][0]=0x51;
+ 116:	29 a7       	std	Y+41, r18	; 0x29
+	memory[20][1]=0x60;
+ 118:	80 e6       	ldi	r24, 0x60	; 96
+ 11a:	8a a7       	std	Y+42, r24	; 0x2a
+	
+	memory[21][0]=0xf0;
+ 11c:	80 ef       	ldi	r24, 0xF0	; 240
+ 11e:	8b a7       	std	Y+43, r24	; 0x2b
+	memory[21][1]=0x28;
+ 120:	88 e2       	ldi	r24, 0x28	; 40
+ 122:	8c a7       	std	Y+44, r24	; 0x2c
+	DDRD = 0b00000000;
+	DDRA = 0b11111111;
+	DDRC = 0b11111111;
+	
+	unsigned char memory[256][2];
+	unsigned char PC_Address = 0, branch_address, jump_address; //PD0 for clk
+ 124:	50 e0       	ldi	r21, 0x00	; 0
+	//PC_Address = PINB;
+	
+    while (1) 
+    {
+		
+		curr_clk = PIND;
+ 126:	80 b3       	in	r24, 0x10	; 16
+		jump_selection=PIND;
+ 128:	90 b3       	in	r25, 0x10	; 16
+		branch_selection = PIND;
+ 12a:	20 b3       	in	r18, 0x10	; 16
+		bneq_selection = PIND;
+ 12c:	40 b3       	in	r20, 0x10	; 16
+		zero_flag = PIND;
+ 12e:	30 b3       	in	r19, 0x10	; 16
+		
+		 
+		
+		if(curr_clk & 0b00000001 )
+ 130:	80 ff       	sbrs	r24, 0
+ 132:	f9 cf       	rjmp	.-14     	; 0x126 <main+0xba>
+		{
+		   
+		  PORTA  = memory[PC_Address][0];
+ 134:	e5 2f       	mov	r30, r21
+ 136:	f0 e0       	ldi	r31, 0x00	; 0
+ 138:	ee 0f       	add	r30, r30
+ 13a:	ff 1f       	adc	r31, r31
+ 13c:	61 e0       	ldi	r22, 0x01	; 1
+ 13e:	70 e0       	ldi	r23, 0x00	; 0
+ 140:	6c 0f       	add	r22, r28
+ 142:	7d 1f       	adc	r23, r29
+ 144:	e6 0f       	add	r30, r22
+ 146:	f7 1f       	adc	r31, r23
+ 148:	80 81       	ld	r24, Z
+ 14a:	8b bb       	out	0x1b, r24	; 27
+		  PORTC  = memory[PC_Address][1];
+ 14c:	81 81       	ldd	r24, Z+1	; 0x01
+ 14e:	85 bb       	out	0x15, r24	; 21
+		   
+		   curr_clk=0;
+		   
+		   PC_Address++;
+ 150:	5f 5f       	subi	r21, 0xFF	; 255
+		   
+		   if(jump_selection & 0b00000010)
+ 152:	91 ff       	sbrs	r25, 1
+ 154:	12 c0       	rjmp	.+36     	; 0x17a <main+0x10e>
+		   {
+			   jump_address = ((memory[PC_Address-1][0] & 0b00001111) << 4) | ((memory[PC_Address-1][1] & 0b11110000) >>4);
+ 156:	e5 2f       	mov	r30, r21
+ 158:	f0 e0       	ldi	r31, 0x00	; 0
+ 15a:	31 97       	sbiw	r30, 0x01	; 1
+ 15c:	ee 0f       	add	r30, r30
+ 15e:	ff 1f       	adc	r31, r31
+ 160:	e6 0f       	add	r30, r22
+ 162:	f7 1f       	adc	r31, r23
+ 164:	90 81       	ld	r25, Z
+ 166:	e1 81       	ldd	r30, Z+1	; 0x01
+ 168:	70 e1       	ldi	r23, 0x10	; 16
+ 16a:	97 9f       	mul	r25, r23
+ 16c:	c0 01       	movw	r24, r0
+ 16e:	11 24       	eor	r1, r1
+ 170:	e2 95       	swap	r30
+ 172:	ef 70       	andi	r30, 0x0F	; 15
+ 174:	5e 2f       	mov	r21, r30
+ 176:	58 2b       	or	r21, r24
+ 178:	2b c0       	rjmp	.+86     	; 0x1d0 <main+0x164>
+			   PC_Address = jump_address;
+		   }else if((branch_selection & 0b00000100) && (zero_flag & 0b00010000))
+ 17a:	22 ff       	sbrs	r18, 2
+ 17c:	14 c0       	rjmp	.+40     	; 0x1a6 <main+0x13a>
+ 17e:	34 ff       	sbrs	r19, 4
+ 180:	12 c0       	rjmp	.+36     	; 0x1a6 <main+0x13a>
+		   {
+			   char a = memory[PC_Address-1][1] & 0b00001111;
+ 182:	e5 2f       	mov	r30, r21
+ 184:	f0 e0       	ldi	r31, 0x00	; 0
+ 186:	31 97       	sbiw	r30, 0x01	; 1
+ 188:	ee 0f       	add	r30, r30
+ 18a:	ff 1f       	adc	r31, r31
+ 18c:	81 e0       	ldi	r24, 0x01	; 1
+ 18e:	90 e0       	ldi	r25, 0x00	; 0
+ 190:	8c 0f       	add	r24, r28
+ 192:	9d 1f       	adc	r25, r29
+ 194:	e8 0f       	add	r30, r24
+ 196:	f9 1f       	adc	r31, r25
+ 198:	81 81       	ldd	r24, Z+1	; 0x01
+ 19a:	98 2f       	mov	r25, r24
+ 19c:	9f 70       	andi	r25, 0x0F	; 15
+			   
+			   int sign_bit = a & 0b00001000;
+			   if(sign_bit)
+ 19e:	83 fd       	sbrc	r24, 3
+			   {
+				   a = 0b11110000 | a;
+ 1a0:	90 6f       	ori	r25, 0xF0	; 240
+			   }
+			   PC_Address += a;
+ 1a2:	59 0f       	add	r21, r25
+ 1a4:	15 c0       	rjmp	.+42     	; 0x1d0 <main+0x164>
+		   }else if((bneq_selection & 0b00001000) && !(zero_flag & 0b00010000))
+ 1a6:	43 ff       	sbrs	r20, 3
+ 1a8:	13 c0       	rjmp	.+38     	; 0x1d0 <main+0x164>
+ 1aa:	34 fd       	sbrc	r19, 4
+ 1ac:	11 c0       	rjmp	.+34     	; 0x1d0 <main+0x164>
+		   {
+			   char a = memory[PC_Address-1][1] & 0b00001111;
+ 1ae:	e5 2f       	mov	r30, r21
+ 1b0:	f0 e0       	ldi	r31, 0x00	; 0
+ 1b2:	31 97       	sbiw	r30, 0x01	; 1
+ 1b4:	ee 0f       	add	r30, r30
+ 1b6:	ff 1f       	adc	r31, r31
+ 1b8:	61 e0       	ldi	r22, 0x01	; 1
+ 1ba:	70 e0       	ldi	r23, 0x00	; 0
+ 1bc:	6c 0f       	add	r22, r28
+ 1be:	7d 1f       	adc	r23, r29
+ 1c0:	e6 0f       	add	r30, r22
+ 1c2:	f7 1f       	adc	r31, r23
+ 1c4:	91 81       	ldd	r25, Z+1	; 0x01
+ 1c6:	89 2f       	mov	r24, r25
+ 1c8:	8f 70       	andi	r24, 0x0F	; 15
+			   int sign_bit = a & 0b00001000;
+			   if(sign_bit)
+ 1ca:	93 fd       	sbrc	r25, 3
+			   {
+				   a = 0b11110000 | a;
+ 1cc:	80 6f       	ori	r24, 0xF0	; 240
+			   }
+			   PC_Address += a;
+ 1ce:	58 0f       	add	r21, r24
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 1d0:	7f e3       	ldi	r23, 0x3F	; 63
+ 1d2:	82 e4       	ldi	r24, 0x42	; 66
+ 1d4:	9f e0       	ldi	r25, 0x0F	; 15
+ 1d6:	71 50       	subi	r23, 0x01	; 1
+ 1d8:	80 40       	sbci	r24, 0x00	; 0
+ 1da:	90 40       	sbci	r25, 0x00	; 0
+ 1dc:	e1 f7       	brne	.-8      	; 0x1d6 <main+0x16a>
+ 1de:	00 c0       	rjmp	.+0      	; 0x1e0 <main+0x174>
+ 1e0:	00 00       	nop
+ 1e2:	a1 cf       	rjmp	.-190    	; 0x126 <main+0xba>
+
+000001e4 <_exit>:
+ 1e4:	f8 94       	cli
+
+000001e6 <__stop_program>:
+ 1e6:	ff cf       	rjmp	.-2      	; 0x1e6 <__stop_program>
